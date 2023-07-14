@@ -13,6 +13,7 @@ import {
   TitleContent,
 } from "./CardStyles";
 import { BsPlusCircleFill } from "react-icons/bs";
+import Link from "next/link";
 import ProjectModal from "../Modal/ProjectModal";
 
 const variants = {
@@ -36,8 +37,7 @@ const ProjectCard = ({ item }) => {
   const openModal = () => setIsOpen(true);
   const toggleModal = () => setIsOpen(!isOpen);
 
-  const { title, description, tags, image, imageWebp, images } =
-    item;
+  const { title, description, tags, image, imageWebp, projectURL } = item;
 
   return (
     <motion.div
@@ -49,26 +49,28 @@ const ProjectCard = ({ item }) => {
       variants={variants}
       transition={{ type: "tween" }}
     >
-      <ImgContainer>
-        <Picture>
-          <source srcSet={imageWebp} type="image/webp" />
-          <PictureImg src={image} alt={title} />
-        </Picture>
+      <Link href={projectURL}>
+        <ImgContainer>
+          <Picture>
+            <source srcSet={imageWebp} type="image/webp" />
+            <PictureImg src={image} alt={title} />
+          </Picture>
 
-        <Button
-          type="button"
-          aria-label="Open Project Gallery in a modal window"
-          onClick={openModal}
-        >
-          <BsPlusCircleFill />
-        </Button>
-        <ProjectModal
+          <Button
+            type="button"
+            aria-label="Open Project Gallery in a modal window"
+            onClick={openModal}
+          >
+            <BsPlusCircleFill />
+          </Button>
+          {/* <ProjectModal
           isOpen={isOpen}
           toggleModal={toggleModal}
           title={title}
           images={images}
-        />
-      </ImgContainer>
+        /> */}
+        </ImgContainer>
+      </Link>
       <TitleContent>
         <HeaderThree title>{title}</HeaderThree>
         <Hr />
